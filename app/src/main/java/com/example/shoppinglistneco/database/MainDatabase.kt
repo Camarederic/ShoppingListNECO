@@ -14,6 +14,8 @@ import com.example.shoppinglistneco.entities.ShoppingListNames
 
 abstract class MainDatabase : RoomDatabase() {
 
+    abstract fun getDao():Dao
+
     companion object {
 
         @Volatile
