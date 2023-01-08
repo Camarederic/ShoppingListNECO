@@ -5,12 +5,23 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import com.example.shoppinglistneco.R
+import com.example.shoppinglistneco.activities.MainApp
+import com.example.shoppinglistneco.database.MainViewModel
 import com.example.shoppinglistneco.databinding.FragmentNoteBinding
 
 class NoteFragment : BaseFragment() {
 
     private lateinit var binding: FragmentNoteBinding
+
+    private val mainViewModel: MainViewModel by activityViewModels {
+        MainViewModel.MainViewModelFactory((context?.applicationContext as MainApp).database)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
 
 
     override fun onCreateView(
