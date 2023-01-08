@@ -1,5 +1,6 @@
 package com.example.shoppinglistneco.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.example.shoppinglistneco.R
 import com.example.shoppinglistneco.activities.MainApp
+import com.example.shoppinglistneco.activities.NewNoteActivity
 import com.example.shoppinglistneco.database.MainViewModel
 import com.example.shoppinglistneco.databinding.FragmentNoteBinding
 
@@ -39,7 +41,7 @@ class NoteFragment : BaseFragment() {
     }
 
     override fun onClickNew() {
-
+        startActivity(Intent(activity, NewNoteActivity::class.java))
     }
 
 }
