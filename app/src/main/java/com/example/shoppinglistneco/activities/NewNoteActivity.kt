@@ -7,7 +7,10 @@ import android.view.Menu
 import android.view.MenuItem
 import com.example.shoppinglistneco.R
 import com.example.shoppinglistneco.databinding.ActivityNewNoteBinding
+import com.example.shoppinglistneco.entities.NoteItem
 import com.example.shoppinglistneco.fragments.NoteFragment
+import java.text.SimpleDateFormat
+import java.util.*
 
 class NewNoteActivity : AppCompatActivity() {
 
@@ -19,6 +22,8 @@ class NewNoteActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         actionBarSettings()
+
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -37,12 +42,25 @@ class NewNoteActivity : AppCompatActivity() {
 
     private fun setMainResult() {
         val intent = Intent()
-        intent.putExtra(NoteFragment.TITLE_KEY, binding.edTitle.text.toString())
-        intent.putExtra(NoteFragment.DESCRIPTION_KEY, binding.edDescription.text.toString())
+        intent.putExtra(NoteFragment.NEW_NOTE_KEY, createNewNote())
         setResult(RESULT_OK, intent)
         finish()
     }
 
+    private fun getCurrentTime():String{
+        val formatter = SimpleDateFormat("hh:mm:ss - yyyy/MM/dd", Locale.getDefault())
+        return formatter.format(Calendar.getInstance().time)
+    }
+
+    private fun createNewNote():NoteItem{
+        return NoteItem(
+            null,
+            binding.edTitle.text.toString(),
+            binding.edDescription.text.toString(),
+            getCurrentTime(),
+            ""
+        )
+    }
 
     // метод для стрелки назад на актион баре
     private fun actionBarSettings() {
