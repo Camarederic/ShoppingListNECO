@@ -20,7 +20,7 @@ import com.example.shoppinglistneco.database.NoteAdapter
 import com.example.shoppinglistneco.databinding.FragmentNoteBinding
 import com.example.shoppinglistneco.entities.NoteItem
 
-class NoteFragment : BaseFragment() {
+class NoteFragment : BaseFragment(), NoteAdapter.Listener {
 
     private lateinit var binding: FragmentNoteBinding
     private lateinit var editLauncher: ActivityResultLauncher<Intent>
@@ -55,7 +55,7 @@ class NoteFragment : BaseFragment() {
 
     private fun initRecyclerView() = with(binding) {
         recyclerViewNote.layoutManager = LinearLayoutManager(activity)
-        adapter = NoteAdapter()
+        adapter = NoteAdapter(this@NoteFragment)
         recyclerViewNote.adapter = adapter
     }
 
@@ -84,6 +84,10 @@ class NoteFragment : BaseFragment() {
 
     override fun onClickNew() {
         editLauncher.launch(Intent(activity, NewNoteActivity::class.java))
+    }
+
+    override fun deleteItem(id: Int) {
+        mainViewModel.deleteNote(id)
     }
 
 }

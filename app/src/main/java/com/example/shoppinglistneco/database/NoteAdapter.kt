@@ -10,18 +10,21 @@ import com.example.shoppinglistneco.R
 import com.example.shoppinglistneco.databinding.NoteListItemBinding
 import com.example.shoppinglistneco.entities.NoteItem
 
-class NoteAdapter : ListAdapter<NoteItem, NoteAdapter.ItemHolder>(ItemComparator()) {
-
+class NoteAdapter(private val listener: Listener) :
+    ListAdapter<NoteItem, NoteAdapter.ItemHolder>(ItemComparator()) {
 
 
     class ItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private val binding = NoteListItemBinding.bind(itemView)
 
-        fun setData(note: NoteItem) = with(binding) {
+        fun setData(note: NoteItem, listener: Listener) = with(binding) {
             tvTitle.text = note.title
             tvDescription.text = note.content
             tvTime.text = note.time
+            imageButtonDelete.setOnClickListener {
+                listener.deleteItem(note.id!!)
+            }
         }
 
         companion object {
@@ -34,7 +37,7 @@ class NoteAdapter : ListAdapter<NoteItem, NoteAdapter.ItemHolder>(ItemComparator
         }
     }
 
-    class ItemComparator: DiffUtil.ItemCallback<NoteItem>(){
+    class ItemComparator : DiffUtil.ItemCallback<NoteItem>() {
         override fun areItemsTheSame(oldItem: NoteItem, newItem: NoteItem): Boolean {
             return oldItem.id == newItem.id
         }
@@ -50,7 +53,12 @@ class NoteAdapter : ListAdapter<NoteItem, NoteAdapter.ItemHolder>(ItemComparator
     }
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
-        holder.setData(getItem(position))
+        holder.setData(getItem(position),listener)
     }
+
+    interface Listener {
+        fun deleteItem(id: Int)
+    }
+
 
 }

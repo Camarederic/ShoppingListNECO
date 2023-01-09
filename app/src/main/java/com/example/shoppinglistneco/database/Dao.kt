@@ -2,6 +2,7 @@ package com.example.shoppinglistneco.database
 
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import com.example.shoppinglistneco.entities.NoteItem
@@ -14,5 +15,8 @@ interface Dao {
     fun getAllNotes(): Flow<List<NoteItem>>
 
     @Insert
-    suspend fun insertNote(note:NoteItem)
+    suspend fun insertNote(note: NoteItem)
+
+    @Query("DELETE FROM note_list WHERE id IS :id")
+    suspend fun deleteNote(id: Int)
 }
