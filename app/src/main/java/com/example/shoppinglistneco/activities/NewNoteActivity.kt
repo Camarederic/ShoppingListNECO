@@ -1,8 +1,12 @@
 package com.example.shoppinglistneco.activities
 
 import android.content.Intent
+import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Spannable
+import android.text.style.StyleSpan
+import android.text.style.TypefaceSpan
 import android.view.Menu
 import android.view.MenuItem
 import com.example.shoppinglistneco.R
@@ -52,8 +56,28 @@ class NewNoteActivity : AppCompatActivity() {
             setMainResult()
         } else if (item.itemId == android.R.id.home) {
             finish()
+        }else if (item.itemId == R.id.bold){
+            setBoldForSelectedText()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    // функция для выделения слова и изменения его на другой шрифт
+    private fun setBoldForSelectedText() {
+        val startPosition = binding.edDescription.selectionStart
+        val endPosition = binding.edDescription.selectionEnd
+
+        val styles = binding.edDescription.text.getSpans(startPosition, endPosition, StyleSpan::class.java)
+        var boldStyle: StyleSpan? = null
+        if (styles.isNotEmpty()){
+            binding.edDescription.text.removeSpan(styles[0])
+        }else{
+            boldStyle = StyleSpan(Typeface.BOLD)
+        }
+
+        binding.edDescription.text.setSpan(boldStyle,startPosition,endPosition, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        binding.edDescription.text.trim()
+        binding.edDescription.setSelection(startPosition)
     }
 
     private fun setMainResult() {
