@@ -17,6 +17,10 @@ class MainViewModel(database: MainDatabase) : ViewModel() {
         dao.deleteNote(id)
     }
 
+    fun updateNote(note: NoteItem) = viewModelScope.launch {
+        dao.updateNote(note)
+    }
+
     @Suppress("UNCHECKED_CAST")
     class MainViewModelFactory(private val database: MainDatabase) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {

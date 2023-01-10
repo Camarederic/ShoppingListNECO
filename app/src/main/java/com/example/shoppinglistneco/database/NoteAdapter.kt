@@ -22,6 +22,9 @@ class NoteAdapter(private val listener: Listener) :
             tvTitle.text = note.title
             tvDescription.text = note.content
             tvTime.text = note.time
+            itemView.setOnClickListener {
+                listener.onclickItem(note)
+            }
             imageButtonDelete.setOnClickListener {
                 listener.deleteItem(note.id!!)
             }
@@ -53,11 +56,12 @@ class NoteAdapter(private val listener: Listener) :
     }
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
-        holder.setData(getItem(position),listener)
+        holder.setData(getItem(position), listener)
     }
 
     interface Listener {
         fun deleteItem(id: Int)
+        fun onclickItem(note: NoteItem)
     }
 
 

@@ -45,7 +45,7 @@
                 android:ems="10"
                 android:gravity="top"
                 android:hint="@string/hint_description"
-                android:inputType="textPersonName"
+                android:inputType="textMultiLine|textPersonName"
                 android:textSize="16sp"
                 android:textStyle="normal"
                 app:layout_constraintBottom_toBottomOf="parent"
