@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Html
 import android.text.Spannable
 import android.text.style.StyleSpan
 import android.text.style.TypefaceSpan
@@ -13,6 +14,7 @@ import com.example.shoppinglistneco.R
 import com.example.shoppinglistneco.databinding.ActivityNewNoteBinding
 import com.example.shoppinglistneco.entities.NoteItem
 import com.example.shoppinglistneco.fragments.NoteFragment
+import com.example.shoppinglistneco.utils.HtmlManager
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -42,7 +44,7 @@ class NewNoteActivity : AppCompatActivity() {
 
     private fun fillNote() {
             binding.edTitle.setText(note?.title)
-            binding.edDescription.setText(note?.content)
+            binding.edDescription.setText(HtmlManager.getTextFromHtml(note?.content!!).trim())
 
     }
 
@@ -99,7 +101,7 @@ class NewNoteActivity : AppCompatActivity() {
     private fun updateNote(): NoteItem? {
         return note?.copy(
             title = binding.edTitle.text.toString(),
-            content = binding.edDescription.text.toString()
+            content = HtmlManager.textToHtml(binding.edDescription.text)
         )
     }
 
@@ -112,7 +114,7 @@ class NewNoteActivity : AppCompatActivity() {
         return NoteItem(
             null,
             binding.edTitle.text.toString(),
-            binding.edDescription.text.toString(),
+            HtmlManager.textToHtml(binding.edDescription.text),
             getCurrentTime(),
             ""
         )
