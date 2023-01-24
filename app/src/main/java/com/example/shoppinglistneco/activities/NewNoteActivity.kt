@@ -10,6 +10,9 @@ import android.text.style.StyleSpan
 import android.text.style.TypefaceSpan
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import com.example.shoppinglistneco.R
 import com.example.shoppinglistneco.databinding.ActivityNewNoteBinding
 import com.example.shoppinglistneco.entities.NoteItem
@@ -31,6 +34,8 @@ class NewNoteActivity : AppCompatActivity() {
         actionBarSettings()
 
         getNote()
+
+
     }
 
     private fun getNote() {
@@ -60,7 +65,12 @@ class NewNoteActivity : AppCompatActivity() {
             finish()
         }else if (item.itemId == R.id.bold){
             setBoldForSelectedText()
-        }
+        }else if (item.itemId == R.id.color_picker)
+            if (binding.colorPicker.isShown){
+                closeColorPicker()
+            }else{
+                openColorPicker()
+            }
         return super.onOptionsItemSelected(item)
     }
 
@@ -124,5 +134,33 @@ class NewNoteActivity : AppCompatActivity() {
     private fun actionBarSettings() {
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    // Создаем функцию для открытия Color Picker
+    private fun openColorPicker(){
+        binding.colorPicker.visibility = View.VISIBLE
+        val openAnim = AnimationUtils.loadAnimation(this, R.anim.open_color_picker)
+        binding.colorPicker.startAnimation(openAnim)
+    }
+
+    // Создаем функцию для закрытия Color Picker
+    private fun closeColorPicker(){
+        val openAnim = AnimationUtils.loadAnimation(this, R.anim.close_color_picker)
+        openAnim.setAnimationListener(object: Animation.AnimationListener{
+            override fun onAnimationStart(animation: Animation?) {
+
+            }
+
+            override fun onAnimationEnd(animation: Animation?) {
+                binding.colorPicker.visibility = View.GONE
+            }
+
+            override fun onAnimationRepeat(animation: Animation?) {
+
+            }
+
+        })
+
+        binding.colorPicker.startAnimation(openAnim)
     }
 }
