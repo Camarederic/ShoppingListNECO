@@ -62,7 +62,7 @@
         android:background="#BFBFBF"
         android:elevation="10dp"
         android:orientation="horizontal"
-        android:padding="3dp"
+        android:padding="10dp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -79,27 +79,27 @@
 
                 <ImageButton
                     android:id="@+id/imageButtonRed"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_margin="3dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="5dp"
                     android:background="@null"
                     app:srcCompat="@color/picker_red"
                     tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
                 <ImageButton
                     android:id="@+id/imageButtonGreen"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_margin="3dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="5dp"
                     android:background="@null"
                     app:srcCompat="@color/picker_green"
                     tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
                 <ImageButton
                     android:id="@+id/imageButtonOrange"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_margin="3dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="5dp"
                     android:background="@null"
                     app:srcCompat="@color/picker_orange"
                     tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
@@ -111,27 +111,27 @@
 
                 <ImageButton
                     android:id="@+id/imageButtonYellow"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_margin="3dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="5dp"
                     android:background="@null"
                     app:srcCompat="@color/picker_yellow"
                     tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
                 <ImageButton
                     android:id="@+id/imageButtonBlue"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_margin="3dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="5dp"
                     android:background="@null"
                     app:srcCompat="@color/picker_blue"
                     tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
                 <ImageButton
                     android:id="@+id/imageButtonBlack"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_margin="3dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="5dp"
                     android:background="@null"
                     app:srcCompat="@color/picker_black"
                     tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
