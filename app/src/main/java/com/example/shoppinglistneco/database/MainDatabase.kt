@@ -7,10 +7,10 @@ import androidx.room.RoomDatabase
 import com.example.shoppinglistneco.entities.LibraryItem
 import com.example.shoppinglistneco.entities.NoteItem
 import com.example.shoppinglistneco.entities.ShoppingListItem
-import com.example.shoppinglistneco.entities.ShoppingListNames
+import com.example.shoppinglistneco.entities.ShoppingListName
 
 @Database(entities = [LibraryItem::class, NoteItem::class,
-    ShoppingListItem::class, ShoppingListNames::class], version = 1)
+    ShoppingListItem::class, ShoppingListName::class], version = 1)
 
 abstract class MainDatabase : RoomDatabase() {
 
