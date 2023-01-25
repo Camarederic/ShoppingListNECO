@@ -5,11 +5,9 @@ import android.content.Intent
 import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Html
 import android.text.Spannable
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
-import android.text.style.TypefaceSpan
 import android.view.ActionMode
 import android.view.Menu
 import android.view.MenuItem
@@ -23,7 +21,7 @@ import com.example.shoppinglistneco.entities.NoteItem
 import com.example.shoppinglistneco.fragments.NoteFragment
 import com.example.shoppinglistneco.utils.HtmlManager
 import com.example.shoppinglistneco.utils.MyTouchListener
-import java.text.SimpleDateFormat
+import com.example.shoppinglistneco.utils.TimeManager
 import java.util.*
 
 class NewNoteActivity : AppCompatActivity() {
@@ -182,17 +180,14 @@ class NewNoteActivity : AppCompatActivity() {
         )
     }
 
-    private fun getCurrentTime(): String {
-        val formatter = SimpleDateFormat("hh:mm:ss - yyyy/MM/dd", Locale.getDefault())
-        return formatter.format(Calendar.getInstance().time)
-    }
+
 
     private fun createNewNote(): NoteItem {
         return NoteItem(
             null,
             binding.edTitle.text.toString(),
             HtmlManager.textToHtml(binding.edDescription.text),
-            getCurrentTime(),
+            TimeManager.getCurrentTime(),
             ""
         )
     }

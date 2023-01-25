@@ -12,6 +12,8 @@ import com.example.shoppinglistneco.activities.MainApp
 import com.example.shoppinglistneco.database.MainViewModel
 import com.example.shoppinglistneco.databinding.FragmentShopListNamesBinding
 import com.example.shoppinglistneco.dialogs.NewListDialog
+import com.example.shoppinglistneco.entities.ShoppingListName
+import com.example.shoppinglistneco.utils.TimeManager
 
 
 class ShopListNamesFragment : BaseFragment() {
@@ -49,8 +51,8 @@ class ShopListNamesFragment : BaseFragment() {
 
     }
 
-    private fun observer(){
-        mainViewModel.allNotes.observe(viewLifecycleOwner) {
+    private fun observer() {
+        mainViewModel.allShopListNames.observe(viewLifecycleOwner) {
 
         }
     }
@@ -59,6 +61,12 @@ class ShopListNamesFragment : BaseFragment() {
         NewListDialog.showDialog(activity as AppCompatActivity, object : NewListDialog.Listener {
 
             override fun onClick(name: String) {
+                val shopListName = ShoppingListName(
+                    null, name, TimeManager.getCurrentTime(),
+                    0, 0, ""
+                )
+                mainViewModel.insertShopListName(shopListName)
+
                 Log.d("MyLog", "Name: $name")
             }
 
