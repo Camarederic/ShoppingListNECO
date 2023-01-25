@@ -5,10 +5,11 @@ import android.os.Bundle
 import android.util.Log
 import com.example.shoppinglistneco.R
 import com.example.shoppinglistneco.databinding.ActivityMainBinding
+import com.example.shoppinglistneco.dialogs.NewListDialog
 import com.example.shoppinglistneco.fragments.FragmentManager
 import com.example.shoppinglistneco.fragments.NoteFragment
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NewListDialog.Listener {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -37,11 +38,16 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.new_item -> {
                     Log.d("MyLog", "New")
-                    FragmentManager.currentFragment?.onClickNew()
+                    //FragmentManager.currentFragment?.onClickNew()
+                    NewListDialog.showDialog(this, this)
                 }
             }
 
             true
         }
+    }
+
+    override fun onClick(name: String) {
+        Log.d("MyLog", "Name: $name")
     }
 }

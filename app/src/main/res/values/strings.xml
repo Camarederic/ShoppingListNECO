@@ -11,4 +11,7 @@
     <string name="menu_save">Save</string>
     <string name="menu_bold">Bold</string>
     <string name="color_picker">Color</string>
+    <string name="new_list_name">New list name</string>
+    <string name="hint_user_name">List name</string>
+    <string name="button_create">Create list</string>
 </resources>
