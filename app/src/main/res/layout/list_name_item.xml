@@ -62,7 +62,7 @@
         tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
     <ImageButton
-        android:id="@+id/imageButtonEdit"
+        android:id="@+id/imageButtonEditList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#2196F3"
@@ -81,9 +81,9 @@
         android:layout_marginBottom="6dp"
         android:backgroundTint="#8BC34A"
         app:cardCornerRadius="2dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageButtonEdit"
-        app:layout_constraintEnd_toStartOf="@+id/imageButtonEdit"
-        app:layout_constraintTop_toTopOf="@+id/imageButtonEdit">
+        app:layout_constraintBottom_toBottomOf="@+id/imageButtonEditList"
+        app:layout_constraintEnd_toStartOf="@+id/imageButtonEditList"
+        app:layout_constraintTop_toTopOf="@+id/imageButtonEditList">
 
         <LinearLayout
             android:layout_width="match_parent"
