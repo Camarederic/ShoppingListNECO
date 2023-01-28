@@ -8,8 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shoppinglistneco.activities.MainApp
 import com.example.shoppinglistneco.database.MainViewModel
+import com.example.shoppinglistneco.database.ShopListNameAdapter
 import com.example.shoppinglistneco.databinding.FragmentShopListNamesBinding
 import com.example.shoppinglistneco.dialogs.NewListDialog
 import com.example.shoppinglistneco.entities.ShoppingListName
@@ -19,6 +21,7 @@ import com.example.shoppinglistneco.utils.TimeManager
 class ShopListNamesFragment : BaseFragment() {
 
     private lateinit var binding: FragmentShopListNamesBinding
+    private lateinit var adapter: ShopListNameAdapter
 
 
     private val mainViewModel: MainViewModel by activityViewModels {
@@ -48,12 +51,14 @@ class ShopListNamesFragment : BaseFragment() {
     }
 
     private fun initRecyclerView() = with(binding) {
-
+        recyclerView.layoutManager = LinearLayoutManager(activity)
+        adapter = ShopListNameAdapter()
+        recyclerView.adapter = adapter
     }
 
     private fun observer() {
         mainViewModel.allShopListNames.observe(viewLifecycleOwner) {
-
+            adapter.submitList(it)
         }
     }
 
