@@ -13,7 +13,7 @@ import com.example.shoppinglistneco.entities.NoteItem
 import com.example.shoppinglistneco.entities.ShoppingListName
 import com.example.shoppinglistneco.utils.HtmlManager
 
-class ShopListNameAdapter() :
+class ShopListNameAdapter(private val listener: Listener) :
     ListAdapter<ShoppingListName, ShopListNameAdapter.ItemHolder>(ItemComparator()) {
 
 
@@ -21,7 +21,7 @@ class ShopListNameAdapter() :
 
         private val binding = ListNameItemBinding.bind(itemView)
 
-        fun setData(shopListNameItem: ShoppingListName) = with(binding) {
+        fun setData(shopListNameItem: ShoppingListName, listener: Listener) = with(binding) {
             tvListName.text = shopListNameItem.name
             tvTime.text = shopListNameItem.time
 
@@ -29,7 +29,7 @@ class ShopListNameAdapter() :
 
             }
             imageButtonDeleteList.setOnClickListener {
-
+                listener.deleteItem(shopListNameItem.id!!)
             }
         }
 
@@ -44,11 +44,17 @@ class ShopListNameAdapter() :
     }
 
     class ItemComparator : DiffUtil.ItemCallback<ShoppingListName>() {
-        override fun areItemsTheSame(oldItem: ShoppingListName, newItem: ShoppingListName): Boolean {
+        override fun areItemsTheSame(
+            oldItem: ShoppingListName,
+            newItem: ShoppingListName
+        ): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: ShoppingListName, newItem: ShoppingListName): Boolean {
+        override fun areContentsTheSame(
+            oldItem: ShoppingListName,
+            newItem: ShoppingListName
+        ): Boolean {
             return oldItem == newItem
         }
 
@@ -59,7 +65,7 @@ class ShopListNameAdapter() :
     }
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
-        holder.setData(getItem(position))
+        holder.setData(getItem(position), listener)
     }
 
     interface Listener {

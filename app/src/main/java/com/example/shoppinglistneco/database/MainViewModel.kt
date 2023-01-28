@@ -24,6 +24,10 @@ class MainViewModel(database: MainDatabase) : ViewModel() {
         dao.deleteNote(id)
     }
 
+    fun deleteShopListName(id:Int) = viewModelScope.launch {
+        dao.deleteShopListName(id)
+    }
+
     fun updateNote(note: NoteItem) = viewModelScope.launch {
         dao.updateNote(note)
     }

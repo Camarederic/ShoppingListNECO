@@ -13,12 +13,14 @@ import com.example.shoppinglistneco.activities.MainApp
 import com.example.shoppinglistneco.database.MainViewModel
 import com.example.shoppinglistneco.database.ShopListNameAdapter
 import com.example.shoppinglistneco.databinding.FragmentShopListNamesBinding
+import com.example.shoppinglistneco.dialogs.DeleteDialog
 import com.example.shoppinglistneco.dialogs.NewListDialog
+import com.example.shoppinglistneco.entities.NoteItem
 import com.example.shoppinglistneco.entities.ShoppingListName
 import com.example.shoppinglistneco.utils.TimeManager
 
 
-class ShopListNamesFragment : BaseFragment() {
+class ShopListNamesFragment : BaseFragment(), ShopListNameAdapter.Listener {
 
     private lateinit var binding: FragmentShopListNamesBinding
     private lateinit var adapter: ShopListNameAdapter
@@ -52,7 +54,7 @@ class ShopListNamesFragment : BaseFragment() {
 
     private fun initRecyclerView() = with(binding) {
         recyclerView.layoutManager = LinearLayoutManager(activity)
-        adapter = ShopListNameAdapter()
+        adapter = ShopListNameAdapter(this@ShopListNamesFragment)
         recyclerView.adapter = adapter
     }
 
@@ -81,6 +83,20 @@ class ShopListNamesFragment : BaseFragment() {
     companion object {
 
         fun newInstance() = ShopListNamesFragment()
+    }
+
+    override fun deleteItem(id: Int) {
+        DeleteDialog.showDialog(context as AppCompatActivity, object : DeleteDialog.Listener {
+
+            override fun onClick() {
+                mainViewModel.deleteShopListName(id)
+            }
+
+        })
+    }
+
+    override fun onclickItem(note: NoteItem) {
+
     }
 
 }
