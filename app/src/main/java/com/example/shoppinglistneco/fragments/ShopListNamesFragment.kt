@@ -77,7 +77,7 @@ class ShopListNamesFragment : BaseFragment(), ShopListNameAdapter.Listener {
                 Log.d("MyLog", "Name: $name")
             }
 
-        })
+        }, "")
     }
 
     companion object {
@@ -95,7 +95,20 @@ class ShopListNamesFragment : BaseFragment(), ShopListNameAdapter.Listener {
         })
     }
 
-    override fun onclickItem(note: NoteItem) {
+    override fun updateItem(shopListName: ShoppingListName) {
+        NewListDialog.showDialog(activity as AppCompatActivity, object : NewListDialog.Listener {
+
+            override fun onClick(name: String) {
+
+                mainViewModel.updateShopListName(shopListName.copy(name = name))
+
+                Log.d("MyLog", "Name: $name")
+            }
+
+        }, shopListName.name)
+    }
+
+    override fun onclickItem(shopListName: ShoppingListName) {
 
     }
 

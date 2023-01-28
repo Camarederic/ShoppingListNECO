@@ -18,4 +18,6 @@
     <string name="delete_item">Do you want delete this item?</string>
     <string name="delete_button">Delete</string>
     <string name="cancel_button">Cancel</string>
+    <string name="update_button">Update</string>
+    <string name="update_list_name">Update list name</string>
 </resources>
