@@ -6,11 +6,11 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.shoppinglistneco.entities.LibraryItem
 import com.example.shoppinglistneco.entities.NoteItem
-import com.example.shoppinglistneco.entities.ShoppingListItem
+import com.example.shoppinglistneco.entities.ShopListItem
 import com.example.shoppinglistneco.entities.ShopListNameItem
 
 @Database(entities = [LibraryItem::class, NoteItem::class,
-    ShoppingListItem::class, ShopListNameItem::class], version = 1)
+    ShopListItem::class, ShopListNameItem::class], version = 1)
 
 abstract class MainDatabase : RoomDatabase() {
 
