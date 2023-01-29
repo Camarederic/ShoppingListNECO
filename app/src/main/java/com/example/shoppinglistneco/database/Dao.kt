@@ -2,12 +2,11 @@ package com.example.shoppinglistneco.database
 
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.example.shoppinglistneco.entities.NoteItem
-import com.example.shoppinglistneco.entities.ShoppingListName
+import com.example.shoppinglistneco.entities.ShopListNameItem
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -17,13 +16,13 @@ interface Dao {
     fun getAllNotes(): Flow<List<NoteItem>>
 
     @Query("SELECT * FROM shopping_list_names")
-    fun getAllShopListNames(): Flow<List<ShoppingListName>>
+    fun getAllShopListNames(): Flow<List<ShopListNameItem>>
 
     @Insert
     suspend fun insertNote(note: NoteItem)
 
     @Insert
-    suspend fun insertShopListName(name: ShoppingListName)
+    suspend fun insertShopListName(name: ShopListNameItem)
 
     @Query("DELETE FROM note_list WHERE id IS :id")
     suspend fun deleteNote(id: Int)
@@ -35,5 +34,5 @@ interface Dao {
     suspend fun updateNote(note: NoteItem)
 
     @Update
-    suspend fun updateShopListName(shopListName: ShoppingListName)
+    suspend fun updateShopListName(shopListNameItem: ShopListNameItem)
 }

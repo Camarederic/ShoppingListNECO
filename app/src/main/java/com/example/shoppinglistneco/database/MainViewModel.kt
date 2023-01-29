@@ -2,7 +2,7 @@ package com.example.shoppinglistneco.database
 
 import androidx.lifecycle.*
 import com.example.shoppinglistneco.entities.NoteItem
-import com.example.shoppinglistneco.entities.ShoppingListName
+import com.example.shoppinglistneco.entities.ShopListNameItem
 import kotlinx.coroutines.launch
 
 class MainViewModel(database: MainDatabase) : ViewModel() {
@@ -10,13 +10,13 @@ class MainViewModel(database: MainDatabase) : ViewModel() {
     private val dao = database.getDao()
 
     val allNotes: LiveData<List<NoteItem>> = dao.getAllNotes().asLiveData()
-    val allShopListNames: LiveData<List<ShoppingListName>> = dao.getAllShopListNames().asLiveData()
+    val allItemShopListNames: LiveData<List<ShopListNameItem>> = dao.getAllShopListNames().asLiveData()
 
     fun insertNote(note: NoteItem) = viewModelScope.launch {
         dao.insertNote(note)
     }
 
-    fun insertShopListName(listName: ShoppingListName) = viewModelScope.launch {
+    fun insertShopListName(listName: ShopListNameItem) = viewModelScope.launch {
         dao.insertShopListName(listName)
     }
 
@@ -32,8 +32,8 @@ class MainViewModel(database: MainDatabase) : ViewModel() {
         dao.updateNote(note)
     }
 
-    fun updateShopListName(shopListName: ShoppingListName) = viewModelScope.launch {
-        dao.updateShopListName(shopListName)
+    fun updateShopListName(shopListNameItem: ShopListNameItem) = viewModelScope.launch {
+        dao.updateShopListName(shopListNameItem)
     }
 
     @Suppress("UNCHECKED_CAST")
