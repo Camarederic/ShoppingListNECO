@@ -20,4 +20,8 @@
     <string name="cancel_button">Cancel</string>
     <string name="update_button">Update</string>
     <string name="update_list_name">Update list name</string>
+    <string name="menu_delete_list">Delete list</string>
+    <string name="menu_clear_list">Clear list</string>
+    <string name="menu_share_list">Share list</string>
+    <string name="hint_new_item">New item</string>
 </resources>

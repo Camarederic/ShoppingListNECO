@@ -2,7 +2,9 @@ package com.example.shoppinglistneco.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import androidx.activity.viewModels
+import com.example.shoppinglistneco.R
 import com.example.shoppinglistneco.database.MainViewModel
 import com.example.shoppinglistneco.databinding.ActivityShopListBinding
 import com.example.shoppinglistneco.entities.ShopListNameItem
@@ -22,6 +24,11 @@ class ShopListActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         init()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.shop_list_menu, menu)
+        return true
     }
 
     private fun init(){
