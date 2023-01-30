@@ -24,4 +24,5 @@
     <string name="menu_clear_list">Clear list</string>
     <string name="menu_share_list">Share list</string>
     <string name="hint_new_item">New item</string>
+    <string name="empty">Empty</string>
 </resources>
