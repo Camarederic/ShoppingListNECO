@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shoppinglistneco.R
 import com.example.shoppinglistneco.databinding.ListNameItemBinding
+import com.example.shoppinglistneco.databinding.ShopLibraryListItemBinding
+import com.example.shoppinglistneco.databinding.ShopListItemBinding
 import com.example.shoppinglistneco.entities.ShopListNameItem
 import com.example.shoppinglistneco.entities.ShopListItem
 
@@ -15,15 +17,17 @@ class ShopListItemAdapter(private val listener: Listener) :
     ListAdapter<ShopListItem, ShopListItemAdapter.ItemHolder>(ItemComparator()) {
 
 
-    class ItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ItemHolder(private val itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        private val binding = ListNameItemBinding.bind(itemView)
 
-        fun setItemData(shopListItem: ShopListItem, listener: Listener) = with(binding) {
-
+        fun setItemData(shopListItem: ShopListItem, listener: Listener) {
+            val binding = ShopListItemBinding.bind(itemView)
+            binding.apply {
+                tvName.text = shopListItem.name
+            }
         }
 
-        fun setLibraryData(shopListItem: ShopListItem, listener: Listener) = with(binding) {
+        fun setLibraryData(shopListItem: ShopListItem, listener: Listener) {
 
         }
 
