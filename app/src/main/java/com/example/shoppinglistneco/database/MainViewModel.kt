@@ -45,6 +45,10 @@ class MainViewModel(database: MainDatabase) : ViewModel() {
         dao.updateShopListName(shopListNameItem)
     }
 
+    fun updateListItem(item: ShopListItem) = viewModelScope.launch {
+        dao.updateListItem(item)
+    }
+
     @Suppress("UNCHECKED_CAST")
     class MainViewModelFactory(private val database: MainDatabase) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
