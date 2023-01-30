@@ -13,6 +13,7 @@ import com.example.shoppinglistneco.R
 import com.example.shoppinglistneco.database.MainViewModel
 import com.example.shoppinglistneco.database.ShopListItemAdapter
 import com.example.shoppinglistneco.databinding.ActivityShopListBinding
+import com.example.shoppinglistneco.dialogs.EditListItemDialog
 import com.example.shoppinglistneco.entities.ShopListItem
 import com.example.shoppinglistneco.entities.ShopListNameItem
 
@@ -22,7 +23,7 @@ class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
     private var shopListNameItem: ShopListNameItem? = null
     private lateinit var saveItem: MenuItem
     private var edItem: EditText? = null
-    private var adapter:ShopListItemAdapter? = null
+    private var adapter: ShopListItemAdapter? = null
 
     private val mainViewModel: MainViewModel by viewModels {
         MainViewModel.MainViewModelFactory((applicationContext as MainApp).database)
@@ -53,7 +54,7 @@ class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.save_item){
+        if (item.itemId == R.id.save_item) {
             addNewShopItem()
         }
         return super.onOptionsItemSelected(item)
@@ -63,7 +64,7 @@ class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
         if (edItem?.text.toString().isEmpty()) return
         val item = ShopListItem(
             null, edItem?.text.toString(),
-            null,
+            "",
             false,
             shopListNameItem?.id!!,
             0
@@ -72,18 +73,18 @@ class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
         mainViewModel.insertShopItem(item)
     }
 
-    private fun listItemObserver(){
+    private fun listItemObserver() {
         mainViewModel.getAllItemsFromList(shopListNameItem?.id!!).observe(this) {
             adapter?.submitList(it)
-            binding.tvEmpty.visibility = if (it.isEmpty()){
+            binding.tvEmpty.visibility = if (it.isEmpty()) {
                 View.VISIBLE
-            }else{
+            } else {
                 View.GONE
             }
         }
     }
 
-    private fun initRecyclerView(){
+    private fun initRecyclerView() {
         adapter = ShopListItemAdapter(this)
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = adapter
@@ -114,7 +115,20 @@ class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
         const val SHOP_LIST_NAME = "shop_list_name"
     }
 
-    override fun onClickItem(shopListItem: ShopListItem) {
-      mainViewModel.updateListItem(shopListItem)
+
+    override fun onClickItem(shopListItem: ShopListItem, state: Int) {
+        when (state) {
+            ShopListItemAdapter.CHECK_BOX -> mainViewModel.updateListItem(shopListItem)
+            ShopListItemAdapter.EDIT -> editListItem(shopListItem)
+        }
+    }
+
+    private fun editListItem(item: ShopListItem) {
+        EditListItemDialog.showDialog(this, item, object : EditListItemDialog.Listener {
+            override fun onClick(item: ShopListItem) {
+                mainViewModel.updateListItem(item)
+            }
+
+        })
     }
 }

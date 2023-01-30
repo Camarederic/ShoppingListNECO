@@ -25,4 +25,8 @@
     <string name="menu_share_list">Share list</string>
     <string name="hint_new_item">New item</string>
     <string name="empty">Empty</string>
+    <string name="update_list_item">Update list item</string>
+    <string name="hint_name">Name</string>
+    <string name="hint_item_info">Item info</string>
+    <string name="button_update_item">Update item</string>
 </resources>

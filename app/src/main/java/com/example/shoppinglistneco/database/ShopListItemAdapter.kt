@@ -31,7 +31,10 @@ class ShopListItemAdapter(private val listener: Listener) :
                 checkBox.isChecked = shopListItem.itemChecked
                 setPaintFlagAndColor(binding)
                 checkBox.setOnClickListener {
-                    listener.onClickItem(shopListItem.copy(itemChecked = checkBox.isChecked))
+                    listener.onClickItem(shopListItem.copy(itemChecked = checkBox.isChecked), CHECK_BOX)
+                }
+                imageButtonEditLibrary.setOnClickListener {
+                    listener.onClickItem(shopListItem, EDIT)
                 }
             }
         }
@@ -44,18 +47,38 @@ class ShopListItemAdapter(private val listener: Listener) :
             if (binding.checkBox.isChecked) {
                 binding.tvName.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
                 binding.tvInfo.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
-                binding.tvName.setTextColor(ContextCompat.getColor(binding.root.context, R.color.light_gray))
-                binding.tvInfo.setTextColor(ContextCompat.getColor(binding.root.context, R.color.light_gray))
+                binding.tvName.setTextColor(
+                    ContextCompat.getColor(
+                        binding.root.context,
+                        R.color.light_gray
+                    )
+                )
+                binding.tvInfo.setTextColor(
+                    ContextCompat.getColor(
+                        binding.root.context,
+                        R.color.light_gray
+                    )
+                )
             } else {
                 binding.tvName.paintFlags = Paint.ANTI_ALIAS_FLAG
                 binding.tvInfo.paintFlags = Paint.ANTI_ALIAS_FLAG
-                binding.tvName.setTextColor(ContextCompat.getColor(binding.root.context, R.color.black))
-                binding.tvInfo.setTextColor(ContextCompat.getColor(binding.root.context, R.color.black))
+                binding.tvName.setTextColor(
+                    ContextCompat.getColor(
+                        binding.root.context,
+                        R.color.black
+                    )
+                )
+                binding.tvInfo.setTextColor(
+                    ContextCompat.getColor(
+                        binding.root.context,
+                        R.color.black
+                    )
+                )
             }
         }
 
         private fun infoVisibility(shopListItem: ShopListItem): Int {
-            return if (shopListItem.itemInfo.isNullOrEmpty()) {
+            return if (shopListItem.itemInfo.isEmpty()) {
                 View.GONE
             } else {
                 View.VISIBLE
@@ -120,8 +143,12 @@ class ShopListItemAdapter(private val listener: Listener) :
     }
 
     interface Listener {
-        fun onClickItem(shopListItem: ShopListItem)
+        fun onClickItem(shopListItem: ShopListItem, state: Int)
     }
 
+    companion object {
+        const val EDIT = 0
+        const val CHECK_BOX = 1
+    }
 
 }
