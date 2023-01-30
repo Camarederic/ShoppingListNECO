@@ -13,6 +13,10 @@ class MainViewModel(database: MainDatabase) : ViewModel() {
     val allNotes: LiveData<List<NoteItem>> = dao.getAllNotes().asLiveData()
     val allItemShopListNames: LiveData<List<ShopListNameItem>> = dao.getAllShopListNames().asLiveData()
 
+    fun getAllItemsFromList(listId:Int): LiveData<List<ShopListItem>>{
+        return dao.getAllShopListItems(listId).asLiveData()
+    }
+
     fun insertNote(note: NoteItem) = viewModelScope.launch {
         dao.insertNote(note)
     }
