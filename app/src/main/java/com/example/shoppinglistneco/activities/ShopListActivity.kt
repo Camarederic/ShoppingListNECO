@@ -1,5 +1,6 @@
 package com.example.shoppinglistneco.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -16,6 +17,7 @@ import com.example.shoppinglistneco.databinding.ActivityShopListBinding
 import com.example.shoppinglistneco.dialogs.EditListItemDialog
 import com.example.shoppinglistneco.entities.ShopListItem
 import com.example.shoppinglistneco.entities.ShopListNameItem
+import com.example.shoppinglistneco.utils.ShareHelper
 
 class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
 
@@ -64,6 +66,14 @@ class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
             }
             R.id.clear_list -> {
                 mainViewModel.deleteShopList(shopListNameItem?.id!!, false)
+            }
+            R.id.share_list -> {
+                startActivity(
+                    Intent.createChooser(
+                        ShareHelper.shareShopList(
+                            adapter?.currentList!!,
+                            shopListNameItem?.name!!
+                        ), "Share by"))
             }
         }
         return super.onOptionsItemSelected(item)
