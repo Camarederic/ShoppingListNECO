@@ -90,7 +90,7 @@ class ShopListNamesFragment : BaseFragment(), ShopListNameAdapter.Listener {
         DeleteDialog.showDialog(context as AppCompatActivity, object : DeleteDialog.Listener {
 
             override fun onClick() {
-                mainViewModel.deleteShopListName(id)
+                mainViewModel.deleteShopList(id,true)
             }
 
         })

@@ -20,13 +20,13 @@
         android:icon="@drawable/ic_new_shop_item"
         android:orderInCategory="1"
         android:title="New item"
-        app:showAsAction="ifRoom|collapseActionView" />
+        app:showAsAction="always|collapseActionView" />
 
     <item
         android:id="@+id/save_item"
         android:icon="@drawable/ic_save"
         android:orderInCategory="2"
-        android:title="Save item"
-        app:showAsAction="ifRoom" />
+        android:title="@string/save_item"
+        app:showAsAction="always" />
 
 </menu>

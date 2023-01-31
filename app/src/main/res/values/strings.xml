@@ -29,4 +29,5 @@
     <string name="hint_name">Name</string>
     <string name="hint_item_info">Item info</string>
     <string name="button_update_item">Update item</string>
+    <string name="save_item">Save item</string>
 </resources>
