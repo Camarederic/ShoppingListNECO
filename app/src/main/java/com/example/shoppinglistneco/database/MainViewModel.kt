@@ -11,9 +11,10 @@ class MainViewModel(database: MainDatabase) : ViewModel() {
     private val dao = database.getDao()
 
     val allNotes: LiveData<List<NoteItem>> = dao.getAllNotes().asLiveData()
-    val allItemShopListNames: LiveData<List<ShopListNameItem>> = dao.getAllShopListNames().asLiveData()
+    val allItemShopListNames: LiveData<List<ShopListNameItem>> =
+        dao.getAllShopListNames().asLiveData()
 
-    fun getAllItemsFromList(listId:Int): LiveData<List<ShopListItem>>{
+    fun getAllItemsFromList(listId: Int): LiveData<List<ShopListItem>> {
         return dao.getAllShopListItems(listId).asLiveData()
     }
 
@@ -29,12 +30,13 @@ class MainViewModel(database: MainDatabase) : ViewModel() {
         dao.insertItem(shopListItem)
     }
 
-    fun deleteNote(id:Int) = viewModelScope.launch {
+    fun deleteNote(id: Int) = viewModelScope.launch {
         dao.deleteNote(id)
     }
 
-    fun deleteShopListName(id:Int) = viewModelScope.launch {
-        dao.deleteShopListName(id)
+    fun deleteShopList(id: Int, deleteList: Boolean) = viewModelScope.launch {
+        if (deleteList) dao.deleteShopListName(id)
+        dao.deleteShopItemsByListId(id)
     }
 
     fun updateNote(note: NoteItem) = viewModelScope.launch {
@@ -48,6 +50,7 @@ class MainViewModel(database: MainDatabase) : ViewModel() {
     fun updateListItem(item: ShopListItem) = viewModelScope.launch {
         dao.updateListItem(item)
     }
+
 
     @Suppress("UNCHECKED_CAST")
     class MainViewModelFactory(private val database: MainDatabase) : ViewModelProvider.Factory {
