@@ -10,10 +10,15 @@ import kotlinx.coroutines.launch
 class MainViewModel(database: MainDatabase) : ViewModel() {
 
     private val dao = database.getDao()
+    val libraryItems = MutableLiveData<List<LibraryItem>>()
 
     val allNotes: LiveData<List<NoteItem>> = dao.getAllNotes().asLiveData()
     val allItemShopListNames: LiveData<List<ShopListNameItem>> =
         dao.getAllShopListNames().asLiveData()
+
+    fun getAllLibraryItems(name: String) = viewModelScope.launch {
+        libraryItems.postValue(dao.getAllLibraryItems(name))
+    }
 
     fun getAllItemsFromList(listId: Int): LiveData<List<ShopListItem>> {
         return dao.getAllShopListItems(listId).asLiveData()
@@ -29,7 +34,7 @@ class MainViewModel(database: MainDatabase) : ViewModel() {
 
     fun insertShopItem(shopListItem: ShopListItem) = viewModelScope.launch {
         dao.insertItem(shopListItem)
-        if (!isLibraryItemExists(shopListItem.name)){
+        if (!isLibraryItemExists(shopListItem.name)) {
             dao.insertLibraryItem(LibraryItem(null, shopListItem.name))
         }
     }
@@ -43,7 +48,7 @@ class MainViewModel(database: MainDatabase) : ViewModel() {
         dao.deleteShopItemsByListId(id)
     }
 
-    private suspend fun isLibraryItemExists(name:String):Boolean{
+    private suspend fun isLibraryItemExists(name: String): Boolean {
         return dao.getAllLibraryItems(name).isNotEmpty()
     }
 
