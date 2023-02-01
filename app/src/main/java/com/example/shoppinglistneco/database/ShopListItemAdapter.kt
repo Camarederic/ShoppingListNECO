@@ -48,6 +48,9 @@ class ShopListItemAdapter(private val listener: Listener) :
             binding.imageButtonDelete.setOnClickListener {
                 listener.onClickItem(shopListItem, DELETE_LIBRARY_ITEM)
             }
+            itemView.setOnClickListener {
+                listener.onClickItem(shopListItem, ADD)
+            }
         }
 
         private fun setPaintFlagAndColor(binding: ShopListItemBinding) {
@@ -158,6 +161,7 @@ class ShopListItemAdapter(private val listener: Listener) :
         const val CHECK_BOX = 1
         const val EDIT_LIBRARY_ITEM = 2
         const val DELETE_LIBRARY_ITEM = 3
+        const val ADD = 4
     }
 
 }
