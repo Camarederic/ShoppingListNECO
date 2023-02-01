@@ -48,12 +48,20 @@ class MainViewModel(database: MainDatabase) : ViewModel() {
         dao.deleteShopItemsByListId(id)
     }
 
+    fun deleteLibraryItem(id: Int) = viewModelScope.launch {
+        dao.deleteLibraryItem(id)
+    }
+
     private suspend fun isLibraryItemExists(name: String): Boolean {
         return dao.getAllLibraryItems(name).isNotEmpty()
     }
 
     fun updateNote(note: NoteItem) = viewModelScope.launch {
         dao.updateNote(note)
+    }
+
+    fun updateLibraryItem(item: LibraryItem) = viewModelScope.launch {
+        dao.updateLibraryItem(item)
     }
 
     fun updateShopListName(shopListNameItem: ShopListNameItem) = viewModelScope.launch {
