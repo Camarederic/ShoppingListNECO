@@ -18,6 +18,7 @@ import com.example.shoppinglistneco.database.MainViewModel
 import com.example.shoppinglistneco.database.ShopListItemAdapter
 import com.example.shoppinglistneco.databinding.ActivityShopListBinding
 import com.example.shoppinglistneco.dialogs.EditListItemDialog
+import com.example.shoppinglistneco.entities.LibraryItem
 import com.example.shoppinglistneco.entities.ShopListItem
 import com.example.shoppinglistneco.entities.ShopListNameItem
 import com.example.shoppinglistneco.utils.ShareHelper
@@ -60,8 +61,8 @@ class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
         return true
     }
 
-    private fun textWatcher():TextWatcher{
-        return object :TextWatcher{
+    private fun textWatcher(): TextWatcher {
+        return object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
             }
@@ -96,7 +97,9 @@ class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
                         ShareHelper.shareShopList(
                             adapter?.currentList!!,
                             shopListNameItem?.name!!
-                        ), "Share by"))
+                        ), "Share by"
+                    )
+                )
             }
         }
         return super.onOptionsItemSelected(item)
@@ -126,7 +129,7 @@ class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
         }
     }
 
-    private fun libraryItemObserver(){
+    private fun libraryItemObserver() {
         mainViewModel.libraryItems.observe(this) {
             val tempShopList = ArrayList<ShopListItem>()
             it.forEach { item ->
@@ -141,6 +144,11 @@ class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
                 tempShopList.add(shopItem)
             }
             adapter?.submitList(tempShopList)
+            binding.tvEmpty.visibility = if (it.isEmpty()) {
+                View.VISIBLE
+            } else {
+                View.GONE
+            }
         }
     }
 
@@ -156,7 +164,8 @@ class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
                 saveItem.isVisible = true
                 edItem?.addTextChangedListener(textWatcher)
                 libraryItemObserver()
-                mainViewModel.getAllItemsFromList(shopListNameItem?.id!!).removeObservers(this@ShopListActivity)
+                mainViewModel.getAllItemsFromList(shopListNameItem?.id!!)
+                    .removeObservers(this@ShopListActivity)
                 mainViewModel.getAllLibraryItems("%%")
                 return true
             }
@@ -188,6 +197,12 @@ class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
         when (state) {
             ShopListItemAdapter.CHECK_BOX -> mainViewModel.updateListItem(shopListItem)
             ShopListItemAdapter.EDIT -> editListItem(shopListItem)
+            ShopListItemAdapter.EDIT_LIBRARY_ITEM -> editLibraryItem(shopListItem)
+            ShopListItemAdapter.DELETE_LIBRARY_ITEM -> {
+                mainViewModel.deleteLibraryItem(shopListItem.id!!)
+                mainViewModel.getAllLibraryItems("%${edItem?.text.toString()}%")
+            }
+
         }
     }
 
@@ -195,6 +210,16 @@ class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
         EditListItemDialog.showDialog(this, item, object : EditListItemDialog.Listener {
             override fun onClick(item: ShopListItem) {
                 mainViewModel.updateListItem(item)
+            }
+
+        })
+    }
+
+    private fun editLibraryItem(item: ShopListItem) {
+        EditListItemDialog.showDialog(this, item, object : EditListItemDialog.Listener {
+            override fun onClick(item: ShopListItem) {
+                mainViewModel.updateLibraryItem(LibraryItem(item.id, item.name))
+                mainViewModel.getAllLibraryItems("%${edItem?.text.toString()}%")
             }
 
         })

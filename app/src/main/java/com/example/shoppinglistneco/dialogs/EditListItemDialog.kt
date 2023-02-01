@@ -3,6 +3,7 @@ package com.example.shoppinglistneco.dialogs
 import android.app.AlertDialog
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import com.example.shoppinglistneco.R
 import com.example.shoppinglistneco.databinding.EditListItemDialogBinding
 import com.example.shoppinglistneco.databinding.NewListDialogBinding
@@ -18,6 +19,9 @@ object EditListItemDialog {
 
         binding.edName.setText(item.name)
         binding.edItemInfo.setText(item.itemInfo)
+        if (item.itemType == 1){
+            binding.edItemInfo.visibility = View.GONE
+        }
         binding.buttonUpdate.setOnClickListener {
             if (binding.edName.text.toString().isNotEmpty()) {
 
