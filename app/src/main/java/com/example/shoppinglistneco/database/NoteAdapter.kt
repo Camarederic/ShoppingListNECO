@@ -1,5 +1,6 @@
 package com.example.shoppinglistneco.database
 
+import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,8 +11,9 @@ import com.example.shoppinglistneco.R
 import com.example.shoppinglistneco.databinding.NoteListItemBinding
 import com.example.shoppinglistneco.entities.NoteItem
 import com.example.shoppinglistneco.utils.HtmlManager
+import com.example.shoppinglistneco.utils.TimeManager
 
-class NoteAdapter(private val listener: Listener) :
+class NoteAdapter(private val listener: Listener, private val defPref: SharedPreferences) :
     ListAdapter<NoteItem, NoteAdapter.ItemHolder>(ItemComparator()) {
 
 
@@ -19,10 +21,10 @@ class NoteAdapter(private val listener: Listener) :
 
         private val binding = NoteListItemBinding.bind(itemView)
 
-        fun setData(note: NoteItem, listener: Listener) = with(binding) {
+        fun setData(note: NoteItem, listener: Listener, defPref: SharedPreferences) = with(binding) {
             tvTitle.text = note.title
             tvDescription.text = HtmlManager.getTextFromHtml(note.content).trim()
-            tvTime.text = note.time
+            tvTime.text = TimeManager.getTimeFormat(note.time, defPref)
             itemView.setOnClickListener {
                 listener.onclickItem(note)
             }
@@ -57,7 +59,7 @@ class NoteAdapter(private val listener: Listener) :
     }
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
-        holder.setData(getItem(position), listener)
+        holder.setData(getItem(position), listener, defPref)
     }
 
     interface Listener {
