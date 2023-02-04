@@ -1,5 +1,6 @@
 package com.example.shoppinglistneco.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +10,7 @@ import com.example.shoppinglistneco.dialogs.NewListDialog
 import com.example.shoppinglistneco.fragments.FragmentManager
 import com.example.shoppinglistneco.fragments.NoteFragment
 import com.example.shoppinglistneco.fragments.ShopListNamesFragment
+import com.example.shoppinglistneco.settings.SettingsActivity
 
 class MainActivity : AppCompatActivity(), NewListDialog.Listener {
 
@@ -30,10 +32,11 @@ class MainActivity : AppCompatActivity(), NewListDialog.Listener {
             when (it.itemId) {
                 R.id.settings -> {
                     Log.d("MyLog", "Settings")
+                    startActivity(Intent(this, SettingsActivity::class.java))
                 }
                 R.id.notes -> {
                     Log.d("MyLog", "Notes")
-                    FragmentManager.setFragment(NoteFragment.newInstance(),this)
+                    FragmentManager.setFragment(NoteFragment.newInstance(), this)
                 }
                 R.id.shop_list -> {
                     FragmentManager.setFragment(ShopListNamesFragment.newInstance(), this)
