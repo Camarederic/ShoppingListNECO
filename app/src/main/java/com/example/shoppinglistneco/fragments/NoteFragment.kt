@@ -13,6 +13,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.shoppinglistneco.activities.MainApp
 import com.example.shoppinglistneco.activities.NewNoteActivity
 import com.example.shoppinglistneco.database.MainViewModel
@@ -55,10 +57,18 @@ class NoteFragment : BaseFragment(), NoteAdapter.Listener {
     }
 
     private fun initRecyclerView() = with(binding) {
-        recyclerViewNote.layoutManager = LinearLayoutManager(activity)
         defPref = PreferenceManager.getDefaultSharedPreferences(requireActivity())
+        recyclerViewNote.layoutManager = getLayoutManager()
         adapter = NoteAdapter(this@NoteFragment, defPref)
         recyclerViewNote.adapter = adapter
+    }
+
+    private fun getLayoutManager():RecyclerView.LayoutManager{
+        return if (defPref.getString("note_style_key", "Linear") == "Linear"){
+            LinearLayoutManager(activity)
+        }else{
+            StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        }
     }
 
     private fun observer(){
