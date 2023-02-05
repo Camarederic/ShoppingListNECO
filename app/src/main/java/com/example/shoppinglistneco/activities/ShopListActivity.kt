@@ -1,6 +1,7 @@
 package com.example.shoppinglistneco.activities
 
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -12,6 +13,7 @@ import android.view.MenuItem.OnActionExpandListener
 import android.view.View
 import android.widget.EditText
 import androidx.activity.viewModels
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shoppinglistneco.R
 import com.example.shoppinglistneco.database.MainViewModel
@@ -32,6 +34,8 @@ class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
     private var adapter: ShopListItemAdapter? = null
     private lateinit var textWatcher: TextWatcher
 
+    private lateinit var defPref:SharedPreferences
+
     private val mainViewModel: MainViewModel by viewModels {
         MainViewModel.MainViewModelFactory((applicationContext as MainApp).database)
     }
@@ -39,6 +43,8 @@ class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityShopListBinding.inflate(layoutInflater)
+        defPref = PreferenceManager.getDefaultSharedPreferences(this)
+        setTheme(getSelectedTheme())
         setContentView(binding.root)
 
         init()
@@ -236,6 +242,14 @@ class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
             checkedItemsCounter = checkedItemCounter
         )
         mainViewModel.updateShopListName(tempShopListNameItem!!)
+    }
+
+    private fun getSelectedTheme(): Int {
+        return if (defPref.getString("theme_key", "blue") == "blue") {
+            R.style.Theme_ShoppingListBlueNECO
+        } else {
+            R.style.Theme_ShoppingListRedNECO
+        }
     }
 
     override fun onBackPressed() {
