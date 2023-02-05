@@ -42,4 +42,6 @@
     <string name="choose_text_size">Choose text size</string>
     <string name="title_text_size">Title text size</string>
     <string name="content_text_size">Content text size</string>
+
+    <string name="inter_advertisement_id">ca-app-pub-3940256099942544/1033173712</string>
 </resources>
