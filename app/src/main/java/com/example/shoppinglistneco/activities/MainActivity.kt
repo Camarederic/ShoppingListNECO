@@ -24,6 +24,7 @@ class MainActivity : AppCompatActivity(), NewListDialog.Listener {
     override fun onCreate(savedInstanceState: Bundle?) {
         defPref = PreferenceManager.getDefaultSharedPreferences(this)
         currentTheme = defPref.getString("theme_key", "blue").toString()
+
         setTheme(getSelectedTheme())
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
