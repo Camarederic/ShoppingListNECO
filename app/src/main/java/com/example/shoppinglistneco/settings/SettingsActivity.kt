@@ -9,7 +9,11 @@ import com.example.shoppinglistneco.R
 
 class SettingsActivity : AppCompatActivity() {
 
+
     private lateinit var defPref:SharedPreferences
+
+    private lateinit var defPref: SharedPreferences
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

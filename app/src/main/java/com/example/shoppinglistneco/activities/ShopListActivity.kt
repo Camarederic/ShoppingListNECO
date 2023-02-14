@@ -35,6 +35,8 @@ class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
     private lateinit var textWatcher: TextWatcher
     private lateinit var defPref:SharedPreferences
 
+    private lateinit var defPref:SharedPreferences
+
     private val mainViewModel: MainViewModel by viewModels {
         MainViewModel.MainViewModelFactory((applicationContext as MainApp).database)
     }
@@ -241,6 +243,14 @@ class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
             checkedItemsCounter = checkedItemCounter
         )
         mainViewModel.updateShopListName(tempShopListNameItem!!)
+    }
+
+    private fun getSelectedTheme(): Int {
+        return if (defPref.getString("theme_key", "blue") == "blue") {
+            R.style.Theme_ShoppingListBlueNECO
+        } else {
+            R.style.Theme_ShoppingListRedNECO
+        }
     }
 
     override fun onBackPressed() {
