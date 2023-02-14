@@ -33,6 +33,7 @@ class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
     private var edItem: EditText? = null
     private var adapter: ShopListItemAdapter? = null
     private lateinit var textWatcher: TextWatcher
+    private lateinit var defPref:SharedPreferences
 
     private lateinit var defPref:SharedPreferences
 
@@ -255,5 +256,13 @@ class ShopListActivity : AppCompatActivity(), ShopListItemAdapter.Listener {
     override fun onBackPressed() {
         saveItemCount()
         super.onBackPressed()
+    }
+
+    private fun getSelectedTheme(): Int {
+        return if (defPref.getString("theme_key", "blue") == "blue") {
+            R.style.Theme_NewNoteBlue
+        } else {
+            R.style.Theme_NewNoteRed
+        }
     }
 }
